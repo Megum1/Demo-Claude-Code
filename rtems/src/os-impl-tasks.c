@@ -33,9 +33,6 @@
                                     INCLUDE FILES
  ***************************************************************************************/
 
-#define _GNU_SOURCE
-#include <pthread.h>
-
 #include "os-rtems.h"
 #include "os-impl-tasks.h"
 
@@ -128,8 +125,6 @@ int32 OS_TaskCreate_Impl(const OS_object_token_t *token, uint32 flags)
         OS_printf("rtems_task_create failed: %s\n", rtems_status_text(status));
         return OS_ERROR;
     }
-
-    pthread_setname_np(impl->id, task->task_name);
 
     /* will place the task in 'ready for scheduling' state */
     status = rtems_task_start(impl->id,                        /*rtems task id*/
